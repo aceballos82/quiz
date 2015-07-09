@@ -48,7 +48,7 @@ exports.answer = function(req,res){
 //GET /quizes/new
 exports.new = function(req,res){
 	// crea objeto quiz
-	var quiz = models.Quiz.build({pregunta: "Pregunta", respuesta: "Respuesta"});
+	var quiz = models.Quiz.build({pregunta: "Pregunta", respuesta: "Respuesta", tema: "Tema"});
 	
 	res.render('quizes/new', {quiz: quiz, errors: []});
 };
@@ -64,7 +64,7 @@ exports.create = function(req,res){
 			for (var prop in errors) errores[i++]={message: errors[prop]}; 
 			res.render('quizes/new', {quiz: quiz, errors: errores});
 	}else{
-			quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
+			quiz.save({fields: ["pregunta", "respuesta", "tema"]}).then(function(){
 					res.redirect('/quizes');   // Redireccion HTTP (URL relativo) lista de preguntas
 			}); 
 	}
@@ -81,6 +81,7 @@ exports.edit = function(req,res){
 exports.update = function(req,res){
 	req.quiz.pregunta = req.body.quiz.pregunta;
 	req.quiz.respuesta = req.body.quiz.respuesta;
+	req.quiz.tema = req.body.quiz.tema;
 	
 	var errors = req.quiz.validate();
 	
@@ -89,7 +90,7 @@ exports.update = function(req,res){
 			for (var prop in errors) errores[i++]={message: errors[prop]}; 
 			res.render('quizes/edit', {quiz: req.quiz, errors: errores});
 	}else{
-			req.quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
+			req.quiz.save({fields: ["pregunta", "respuesta", "tema"]}).then(function(){
 					res.redirect('/quizes');   // Redireccion HTTP (URL relativo) lista de preguntas
 			}); 
 	}
