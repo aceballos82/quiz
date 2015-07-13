@@ -1,0 +1,13 @@
+<h2>P&aacute;gina de estad&iacute;sticas</h2>
+
+	<ul>
+	  <ol>N&uacute;mero de preguntas total: <%= statistics.quizesTotal %></ol>
+
+	  <ol>N&uacute;mero de comentarios total: <%= statistics.commentsTotal %></ol>
+
+	  <ol>Media de comentarios por pregunta: <%= statistics.quizesTotal?(statistics.commentsTotal / statistics.quizesTotal).toFixed(2):0 %></ol>
+
+	  <ol>N&uacute;mero de preguntas sin comentarios: <%= statistics.quizesTotal - statistics.quizesConComments %></ol>
+	
+  		<ol>N&uacute;mero de preguntas con comentarios: <%= statistics.quizesConComments %></ol>
+	</ul>

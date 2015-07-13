@@ -43,6 +43,24 @@ app.use(function(req, res, next){
 	next();
 });
 
+app.use(function(req, res, next){
+	var now = (new Date()).getTime();
+	if(req.session.user){ // Hay una sesion activa
+		if(!req.session.transTime){ // No existe es la primera vez
+			req.session.transTime = now;
+		}else{
+			if(now - req.session.transTime > 120000){ // Han pasado mas de 2 minutos
+				delete req.session.user;
+			}else{
+				req.session.transTime = now;
+			}
+		}
+	}
+			
+	next();
+});
+
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
