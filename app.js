@@ -49,11 +49,11 @@ app.use(function(req, res, next){
 		if(!req.session.transTime){ // No existe es la primera vez
 			req.session.transTime = now;
 		}else{
-		//	if(now - req.session.transTime > 120000){ // Han pasado mas de 2 minutos
-		//		delete req.session.user;
-		//	}else{
-		//		req.session.transTime = now;
-		//	}
+			if(now - req.session.transTime > 120000){ // Han pasado mas de 2 minutos
+				delete res.locals.session.user;
+			}else{
+				req.session.transTime = now;
+			}
 		}
 	}
 			
