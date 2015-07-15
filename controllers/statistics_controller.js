@@ -13,7 +13,7 @@ exports.index = function(req,res){
 			return models.Comment.count();
 		}).then(function(numComments){
 			statistics.commentsTotal = numComments;
-			return models.Comment.findAll({attributes: ['id'], group: ['QuizId']});
+			return models.Comment.findAll({attributes: ['Comments.id'], group: ['QuizId']});
 		}).then(function(numQuizesConComments){
 			console.log(numQuizesConComments);
 			statistics.quizesConComments = numQuizesConComments.length;
