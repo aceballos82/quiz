@@ -15,6 +15,7 @@ exports.index = function(req,res){
 			statistics.commentsTotal = numComments;
 			return models.Comment.findAll({group: 'QuizId'});
 		}).then(function(numQuizesConComments){
+			console.log(numQuizesConComments);
 			statistics.quizesConComments = numQuizesConComments.length;
 		}).catch(function(error){next(error);});		
 		
