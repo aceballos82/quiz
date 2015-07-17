@@ -7,7 +7,10 @@ var statistics = { quizesTotal: 0,
 
 //GET /quizes/statistics
 exports.index = function(req,res){
-	
+	res.render('statistics/index', {statistics: statistics, errors: []});
+};
+
+exports.calculate = function(req,res, next){
 	models.Quiz.count().then(function(numQuizes){
 			statistics.quizesTotal = numQuizes;
 			return models.Comment.count();
@@ -15,9 +18,8 @@ exports.index = function(req,res){
 			statistics.commentsTotal = numComments;
 			return models.Comment.findAll({attributes: ['QuizId'], group: ['QuizId']});
 		}).then(function(numQuizesConComments){
-			console.log(numQuizesConComments);
 			statistics.quizesConComments = numQuizesConComments.length;
-		}).catch(function(error){next(error);});		
-		
-		res.render('statistics/index', {statistics: statistics, errors: []});
+		}).catch(function(error){next(error);
+		}).finally(function(){next();
+		});		
 };
