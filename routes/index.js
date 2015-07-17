@@ -37,7 +37,7 @@ router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
 router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish);
 
 // Definion de ruta de estadistica
-router.get('/quizes/statistics', statisticsController.index);
+router.get('/quizes/statistics', statisticsController.calculate, statisticsController.index);
 
 
 module.exports = router;
